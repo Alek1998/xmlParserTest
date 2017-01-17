@@ -1,4 +1,4 @@
-package com.company;
+package com.company.domain;
 
 /**
  * Created by Alek on 17.01.2017.
@@ -13,7 +13,10 @@ public class Student {
         this.id = id;
     }
 
-    public Student(int id, String name, int age, String course)throws Exception {
+    public Student() {
+    }
+
+    public Student(int id, String name, int age, String course) throws Exception {
         this.id = id;
         this.name = name;
         setAge(age);
@@ -24,10 +27,9 @@ public class Student {
         this.name = name;
     }
 
-    public void setAge(int age)throws Exception
-    {
-        if(age<=0){
-            throw new Exception();
+    public void setAge(int age) throws Exception {
+        if (age <= 0) {
+            throw new IllegalArgumentException("The age should be grater than 0.");
         }
         this.age = age;
     }
@@ -37,7 +39,6 @@ public class Student {
     }
 
     public int getId() {
-
         return id;
     }
 
@@ -52,4 +53,5 @@ public class Student {
     public String getCourse() {
         return course;
     }
+
 }
