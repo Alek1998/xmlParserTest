@@ -57,7 +57,7 @@ public class MainController implements Initializable {
      //   Main.exitApp();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
+        File file=fileChooser.showSaveDialog(root.getScene().getWindow());
         if(file!=null){
             StudentUtils.listStudentToXml(this.allStudents.get(),file);
         }
