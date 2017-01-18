@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="new" />
+      <VBox prefHeight="103.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label text="Name:" />
+                  <TextField />
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="600.0">
+               <children>
+                  <Label text="Age:" />
+                  <TextField prefHeight="0.0" prefWidth="149.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="600.0">
+               <children>
+                  <Label text="Course:" />
+                  <TextField prefHeight="21.0" prefWidth="149.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="38.0" text="OK" />
+                  <Button mnemonicParsing="false" text="Cansle" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
