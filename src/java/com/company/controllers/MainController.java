@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -55,7 +54,13 @@ public class MainController implements Initializable {
 
     @FXML
     public void saveFileAs(ActionEvent actionEvent) {
-        Main.exitApp();
+     //   Main.exitApp();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
+        if(file!=null){
+            StudentUtils.listStudentToXml(this.allStudents.get(),file);
+        }
     }
 
     @FXML
