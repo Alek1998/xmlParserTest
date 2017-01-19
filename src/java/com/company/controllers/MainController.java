@@ -3,12 +3,16 @@ package com.company.controllers;
 import com.company.Main;
 import com.company.domain.Student;
 import com.company.utils.StudentUtils;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -16,9 +20,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -32,13 +36,17 @@ public class MainController implements Initializable {
     private AtomicInteger ID_GENERATOR = new AtomicInteger(0);
     private final ListProperty<Student> allStudents = new SimpleListProperty<>(FXCollections.observableArrayList());
     private final ListProperty<Student> studentsToSave = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private BooleanProperty isOpenFile = new SimpleBooleanProperty(false);
+    private BooleanProperty isStudentListChange = new SimpleBooleanProperty(false);
 
     @FXML
     private VBox root;
     @FXML
-    private MenuItem menuItemExitApp;
-    @FXML
     private TableView<Student> tableView;
+    @FXML
+    private MenuItem menuItemSave;
+    @FXML
+    private MenuItem menuItemSaveAs;
     @FXML
     private TableColumn<Student, Integer> colId;
     @FXML
@@ -54,8 +62,10 @@ public class MainController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         colCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
-
         tableView.setItems(studentsToSave);
+
+        menuItemSave.disableProperty().bind(isOpenFile.and(isStudentListChange).not());
+        menuItemSaveAs.disableProperty().bind(isOpenFile.or(isStudentListChange).not());
     }
 
     @FXML
@@ -68,6 +78,7 @@ public class MainController implements Initializable {
             this.allStudents.setAll(StudentUtils.xmlToStudentListParse(openedFile));
             this.studentsToSave.setAll(StudentUtils.xmlToStudentListParse(openedFile));
             ID_GENERATOR = new AtomicInteger(allStudents.size());
+            isOpenFile.setValue(true);
         }
     }
 
@@ -96,18 +107,20 @@ public class MainController implements Initializable {
         Main.exitApp();
     }
 
-    private void dumpStudentsList(List<Student> students) {
-        students.forEach(student -> {
-            System.out.println("ID:" + student.getId());
-            System.out.println("Name:" + student.getName());
-            System.out.println("Age:" + student.getAge());
-            System.out.println("Course:" + student.getCourse());
-            System.out.println();
-        });
-    }
-
     @FXML
     public void addStudent(ActionEvent actionEvent) throws Exception {
-        studentsToSave.add(new Student(ID_GENERATOR.incrementAndGet(), "",1, ""));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/addFormView.fxml"));
+        Parent addNewRoot = loader.load();
+        Stage stage=new Stage();
+        stage.setTitle("new");
+        Scene scene = new Scene(addNewRoot);
+        stage.setScene(scene);
+        ((StudentsController) loader.getController()).setOkConsumer(student -> {
+            student.setId(ID_GENERATOR.incrementAndGet());
+            studentsToSave.add(student);
+            isStudentListChange.setValue(true);
+        });
+        stage.show();
+        stage.requestFocus();
     }
 }

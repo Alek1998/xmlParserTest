@@ -74,4 +74,14 @@ public class Student {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Student {");
+        sb.append("[id] => ").append(id).append(", ")
+                .append("[name] => ").append(name).append(", ")
+                .append("[age] => ").append(age).append(", ")
+                .append("[course] => ").append(course).append("}");
+        return sb.toString();
+    }
 }
