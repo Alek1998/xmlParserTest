@@ -22,7 +22,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -63,7 +66,6 @@ public class MainController implements Initializable {
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         colCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
         tableView.setItems(studentsToSave);
-
         menuItemSave.disableProperty().bind(isOpenFile.and(isStudentListChange).not());
         menuItemSaveAs.disableProperty().bind(isOpenFile.or(isStudentListChange).not());
     }
@@ -77,7 +79,9 @@ public class MainController implements Initializable {
         if (openedFile != null) {
             this.allStudents.setAll(StudentUtils.xmlToStudentListParse(openedFile));
             this.studentsToSave.setAll(StudentUtils.xmlToStudentListParse(openedFile));
-            ID_GENERATOR = new AtomicInteger(allStudents.size());
+            allStudents.stream().sorted(Comparator.comparingInt(Student::getId).reversed()).findFirst().ifPresent(student -> {
+                ID_GENERATOR = new AtomicInteger(student.getId());
+            });
             isOpenFile.setValue(true);
         }
     }
@@ -123,4 +127,35 @@ public class MainController implements Initializable {
         stage.show();
         stage.requestFocus();
     }
+    @FXML
+    public void editStudent(ActionEvent actionEvent) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/editFormView.fxml"));
+        Parent editRoot = loader.load();
+
+        Stage stage=new Stage();
+        stage.setTitle("Edit");
+        Scene scene = new Scene(editRoot);
+        stage.setScene(scene);
+
+        ((StudentsController) loader.getController()).setOkConsumer(student -> {
+            studentsToSave.remove(student);
+            studentsToSave.add(student);
+            isStudentListChange.setValue(true);
+        });
+        ((StudentsController) loader.getController()).setCurrentStudent(tableView.getSelectionModel().getSelectedItem());
+        ((StudentsController) loader.getController()).prepareForm();
+        stage.show();
+        stage.requestFocus();
+    }
+
+    public  void  searchStudents(ActionEvent actionEvent) throws IOException {
+         FXMLLoader loader=new FXMLLoader(getClass().getResource("/views/searchStudentsView.fxml"));
+         Parent searchRoot=loader.load();
+         Stage  stage=new Stage();
+         stage.setTitle("Search");
+         Scene scene=new Scene(searchRoot);
+         stage.setScene(scene);
+         stage.show();
+    }
+
 }

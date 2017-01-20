@@ -18,11 +18,12 @@ public class Student {
     public Student() {
 
     }
-    public Student(int id){
-        this.id=id;
+
+    public Student(int id) {
+        this.id = id;
     }
 
-    public Student(int id, String name, int age, String course) throws  AgeExeption {
+    public Student(int id, String name, int age, String course) throws AgeExeption {
         this.id = id;
         this.name = name;
         setAge(age);
@@ -33,7 +34,7 @@ public class Student {
         this.name = name;
     }
 
-    public void setAge(int age) throws  AgeExeption {
+    public void setAge(int age) throws AgeExeption {
         if (age <= 0) {
             throw new AgeExeption("The age should be grater than 0.");
         }
@@ -67,10 +68,7 @@ public class Student {
         }
         if (o instanceof Student) {
             Student studentForEqual = (Student) o;
-            return studentForEqual.getId() == this.getId()
-                    && studentForEqual.getName().equals(this.getName())
-                    && studentForEqual.getAge() == this.getAge()
-                    && studentForEqual.getCourse().equals(this.getCourse());
+            return studentForEqual.getId() == this.getId();
         }
         return false;
     }
