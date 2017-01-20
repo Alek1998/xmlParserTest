@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.StudentsSearchController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -29,19 +29,19 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <CheckBox mnemonicParsing="false" text="start with" GridPane.columnIndex="2" />
             <CheckBox mnemonicParsing="false" text="small" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="start with" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" text="starts with" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <CheckBox mnemonicParsing="false" text="contains" GridPane.columnIndex="3" />
             <CheckBox mnemonicParsing="false" text="equal" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <CheckBox mnemonicParsing="false" text="contains" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <CheckBox mnemonicParsing="false" text="ens whith" GridPane.columnIndex="4" />
             <CheckBox mnemonicParsing="false" text="big" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="ens whith" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" text="ends whith" GridPane.columnIndex="4" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="600.0" spacing="5.0">
          <children>
-            <Button mnemonicParsing="false" text="ok" />
-            <Button mnemonicParsing="false" text="cancel" />
+            <Button onAction="#okSearch" mnemonicParsing="false" text="ok" />
+            <Button onAction="#exitApp" mnemonicParsing="false" text="cancel" />
          </children>
       </HBox>
    </children>

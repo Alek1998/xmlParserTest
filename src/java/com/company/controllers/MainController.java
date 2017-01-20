@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -58,6 +59,8 @@ public class MainController implements Initializable {
     private TableColumn<Student, Integer> colAge;
     @FXML
     private TableColumn<Student, String> colCourse;
+    @FXML
+    private Button buttonEdit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +71,7 @@ public class MainController implements Initializable {
         tableView.setItems(studentsToSave);
         menuItemSave.disableProperty().bind(isOpenFile.and(isStudentListChange).not());
         menuItemSaveAs.disableProperty().bind(isOpenFile.or(isStudentListChange).not());
+        buttonEdit.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
     }
 
     @FXML
