@@ -21,7 +21,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Search">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#searchStudents" text="Search" />
+                        <MenuItem fx:id="menuItemSearch" mnemonicParsing="false" onAction="#searchStudents" text="Search" />
+                        <MenuItem fx:id="menuItemResetFilter" mnemonicParsing="false" onAction="#resetFilter" text="reset filtr" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

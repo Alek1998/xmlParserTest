@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.StudentsSearchController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.StudentsSearchController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -16,32 +16,32 @@
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="80.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="name" />
-            <CheckBox mnemonicParsing="false" text="age" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="course" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" text="start with" GridPane.columnIndex="2" />
-            <CheckBox mnemonicParsing="false" text="small" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="starts with" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" text="contains" GridPane.columnIndex="3" />
-            <CheckBox mnemonicParsing="false" text="equal" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="contains" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" text="ens whith" GridPane.columnIndex="4" />
-            <CheckBox mnemonicParsing="false" text="big" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="ends whith" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <CheckBox fx:id="checkBoxName" mnemonicParsing="false" text="name" />
+            <CheckBox fx:id="checkBoxAge" mnemonicParsing="false" text="age" GridPane.rowIndex="2" />
+            <CheckBox fx:id="checkBoxCourse" mnemonicParsing="false" text="course" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldName" promptText="contains text" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldAge" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldCourse" promptText="contains text" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <CheckBox fx:id="checkBoxAgeSmall" mnemonicParsing="false" text="small" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <CheckBox fx:id="checkBoxAgeEqual" mnemonicParsing="false" text="equal" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <CheckBox fx:id="checkBoxAgeBig" mnemonicParsing="false" text="big" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="600.0" spacing="5.0">
          <children>
-            <Button onAction="#okSearch" mnemonicParsing="false" text="ok" />
-            <Button onAction="#exitApp" mnemonicParsing="false" text="cancel" />
+            <Button mnemonicParsing="false" onAction="#okSearch" text="ok" />
+            <Button mnemonicParsing="false" onAction="#exitApp" text="cancel" />
          </children>
       </HBox>
    </children>

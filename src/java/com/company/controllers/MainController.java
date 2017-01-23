@@ -7,6 +7,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,8 +41,10 @@ public class MainController implements Initializable {
     private AtomicInteger ID_GENERATOR = new AtomicInteger(0);
     private final ListProperty<Student> allStudents = new SimpleListProperty<>(FXCollections.observableArrayList());
     private final ListProperty<Student> studentsToSave = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<Student> studentsToReset = new SimpleListProperty<>(FXCollections.observableArrayList());
     private BooleanProperty isOpenFile = new SimpleBooleanProperty(false);
     private BooleanProperty isStudentListChange = new SimpleBooleanProperty(false);
+    private BooleanProperty isFiltred=new SimpleBooleanProperty(false);
 
     @FXML
     private VBox root;
@@ -61,6 +64,10 @@ public class MainController implements Initializable {
     private TableColumn<Student, String> colCourse;
     @FXML
     private Button buttonEdit;
+    @FXML
+    private MenuItem menuItemSearch;
+    @FXML
+    private  MenuItem menuItemResetFilter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +79,9 @@ public class MainController implements Initializable {
         menuItemSave.disableProperty().bind(isOpenFile.and(isStudentListChange).not());
         menuItemSaveAs.disableProperty().bind(isOpenFile.or(isStudentListChange).not());
         buttonEdit.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
+        menuItemSearch.disableProperty().bind(isOpenFile.or(isStudentListChange).not());
+        menuItemResetFilter.disableProperty().bind(isFiltred.not());
+
     }
 
     @FXML
@@ -155,6 +165,10 @@ public class MainController implements Initializable {
     public  void  searchStudents(ActionEvent actionEvent) throws IOException {
          FXMLLoader loader=new FXMLLoader(getClass().getResource("/views/searchStudentsView.fxml"));
          Parent searchRoot=loader.load();
+         studentsToReset.clear();
+         studentsToReset.addAll(studentsToSave);
+        ((StudentsSearchController)loader.getController()).setSearchStudents(studentsToSave);
+         isFiltred.set(true);
          Stage  stage=new Stage();
          stage.setTitle("Search");
          Scene scene=new Scene(searchRoot);
@@ -162,4 +176,8 @@ public class MainController implements Initializable {
          stage.show();
     }
 
+    public void resetFilter(ActionEvent actionEvent) {
+     studentsToSave.clear();
+     studentsToSave.addAll(studentsToReset);
+    }
 }

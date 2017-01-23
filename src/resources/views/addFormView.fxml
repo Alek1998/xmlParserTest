@@ -22,11 +22,11 @@
         </rowConstraints>
          <children>
             <Label text="Name: *" />
-            <TextField fx:id="colName" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldName" GridPane.columnIndex="1" />
             <Label text="Age: *" GridPane.rowIndex="2" />
-            <TextField fx:id="colAge" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldAge" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Course: *" GridPane.rowIndex="4" />
-            <TextField fx:id="colCourse" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldCourse" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="labelForName" text="name is  a,b...z A,B...Z, - and probel" textFill="#F00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="labelForAge" text="age is number &gt;0" textFill="#F00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelForCourse" text="course is  a,b...z A,B...Z,'-' number and probel" textFill="#F00" GridPane.columnIndex="1" GridPane.rowIndex="5" />
