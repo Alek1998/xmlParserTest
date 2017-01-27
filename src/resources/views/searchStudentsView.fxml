@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.StudentsSearchController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.StudentsSearchController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -33,9 +33,9 @@
             <CheckBox fx:id="checkBoxAgeSmall" mnemonicParsing="false" text="small" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <CheckBox fx:id="checkBoxAgeEqual" mnemonicParsing="false" text="equal" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <CheckBox fx:id="checkBoxAgeBig" mnemonicParsing="false" text="big" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="labelForName" text="name is  a,b...z A,B...Z, - and probel" textFill="#f80000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelForAge" text="age is number &gt;0" textFill="#fc0000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="labelForCourse" text="course is  a,b...z A,B...Z,'-' number and probel" textFill="#f80000" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="600.0" spacing="5.0">

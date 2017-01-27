@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -81,22 +80,14 @@ public class StudentsController implements Initializable {
     }
 
     private boolean isValid() {
-        Pattern p;
-        Matcher m;
         if (textFieldName.getText() != null) {
-            p = Pattern.compile("^[a-zA-Z -]{1,50}$");
-            m = p.matcher(textFieldName.getText());
-            isValidName.setValue(m.matches());
+            isValidName.setValue(Pattern.compile("^[a-zA-Z -]{1,50}$").matcher(textFieldName.getText()).matches());
         }
         if (textFieldAge.getText() != null) {
-            p = Pattern.compile("^[0-9]{1,50}$");
-            m = p.matcher(textFieldAge.getText());
-            isValidAge.setValue(m.matches());
+            isValidAge.setValue(Pattern.compile("^[0-9]{1,50}$").matcher(textFieldAge.getText()).matches());
         }
         if (textFieldCourse.getText() != null) {
-            p = Pattern.compile("^[a-zA-Z0-9 -]{1,50}$");
-            m = p.matcher(textFieldCourse.getText());
-            isValidCourse.setValue(m.matches());
+            isValidCourse.setValue(Pattern.compile("^[a-zA-Z0-9 -]{1,50}$").matcher(textFieldCourse.getText()).matches());
         }
         return (isValidName.getValue() && isValidAge.getValue() && isValidCourse.getValue());
     }

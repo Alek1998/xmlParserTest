@@ -1,6 +1,7 @@
 package com.company.controllers;
 
 import com.company.domain.Student;
+import com.company.utils.FilterUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,11 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,12 @@ public class StudentsSearchController implements Initializable {
     private CheckBox checkBoxAgeEqual;
     @FXML
     private CheckBox checkBoxAgeBig;
-
+    @FXML
+    private Label labelForName;
+    @FXML
+    private Label labelForAge;
+    @FXML
+    private Label labelForCourse;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +63,10 @@ public class StudentsSearchController implements Initializable {
         checkBoxAgeSmall.disableProperty().bind(checkBoxAge.selectedProperty().not());
         checkBoxAgeEqual.disableProperty().bind(checkBoxAge.selectedProperty().not());
         checkBoxAgeBig.disableProperty().bind(checkBoxAge.selectedProperty().not());
+
+        labelForName.visibleProperty().bind(isValidName.not());
+        labelForAge.visibleProperty().bind(isValidAge.not());
+        labelForCourse.visibleProperty().bind(isValidCourse.not());
     }
 
 
@@ -77,45 +87,32 @@ public class StudentsSearchController implements Initializable {
     }
 
     public void okSearch(ActionEvent actionEvent) {
-        if(isValid()){
-        if (checkBoxName.isSelected()) {
-            searchStudents.removeAll(searchStudents.stream().filter(s -> !s.getName().replaceAll("^\\s+", "").replaceAll("\\s+$", "").toLowerCase().contains(
-                    textFieldName.getText().replaceAll("^\\s+", "").replaceAll("\\s+$", "").toLowerCase())).collect(Collectors.toList()));
-        }
-        if (checkBoxCourse.isSelected()) {
-            searchStudents.removeAll(searchStudents.stream().filter(s -> !s.getCourse().replaceAll("^\\s+", "").replaceAll("\\s+$", "").toLowerCase().contains(
-                    textFieldCourse.getText().replaceAll("^\\s+", "").replaceAll("\\s+$", "").toLowerCase())).collect(Collectors.toList()));
-        }
-        if (checkBoxAge.isSelected() &&checkBoxAgeSmall.isSelected()||checkBoxAgeBig.isSelected()||checkBoxAgeEqual.isSelected()) {
-            Integer age = new Integer(Integer.valueOf(textFieldAge.getText()));
-            searchStudents.removeAll(searchStudents.stream().filter(s-> !(
-                            checkBoxAgeSmall.isSelected()&&s.getAge()<age||
-                            checkBoxAgeEqual.isSelected()&&s.getAge()==age||
-                            checkBoxAgeBig.isSelected()&&s.getAge()>age)
-            ).collect(Collectors.toList()));
-        }
+        if (isValid()) {
+            if (checkBoxName.isSelected()) {
+                searchStudents.removeAll(searchStudents.stream().filter(s -> !FilterUtils.stringChecked(s.getName(), textFieldName.getText())).collect(Collectors.toList()));
+            }
+            if (checkBoxCourse.isSelected()) {
+                searchStudents.removeAll(searchStudents.stream().filter(s -> !FilterUtils.stringChecked(s.getCourse(), textFieldCourse.getText())).collect(Collectors.toList()));
+            }
+            if (checkBoxAge.isSelected() && checkBoxAgeSmall.isSelected() || checkBoxAgeBig.isSelected() || checkBoxAgeEqual.isSelected()) {
+                Integer age = new Integer(Integer.valueOf(textFieldAge.getText()));
+                searchStudents.removeAll(searchStudents.stream().filter(s -> !(FilterUtils.numberChecked(s.getAge(), age, checkBoxAgeSmall.isSelected(), checkBoxAgeEqual.isSelected(), checkBoxAgeBig.isSelected()))).collect(Collectors.toList()));
+            }
             ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
         }
     }
+
     private boolean isValid() {
-//        Pattern p;
-//        Matcher m;
-//        if (textFieldName.getText() != null) {
-//            p = Pattern.compile("^[a-zA-Z -]{1,50}$");
-//            m = p.matcher(textFieldName.getText());
-//            isValidName.setValue(m.matches());
-//        }
-//        if (textFieldAge.getText() != null) {
-//            p = Pattern.compile("^[0-9]{1,50}$");
-//            m = p.matcher(textFieldAge.getText());
-//            isValidAge.setValue(m.matches());
-//        }
-//        if (textFieldCourse.getText() != null) {
-//            p = Pattern.compile("^[a-zA-Z0-9 -]{1,50}$");
-//            m = p.matcher(textFieldCourse.getText());
-//            isValidCourse.setValue(m.matches());
-//        }
-//        return (isValidName.getValue() && isValidAge.getValue() && isValidCourse.getValue());
-        return true;
+
+        if (checkBoxName.isSelected() && textFieldName.getText() != null) {
+            isValidName.setValue(Pattern.compile("^[a-zA-Z -]{1,50}$").matcher(textFieldName.getText()).matches());
+        }
+        if (checkBoxAge.isSelected() && textFieldAge.getText() != null) {
+            isValidAge.setValue(Pattern.compile("^[0-9]{1,50}$").matcher(textFieldAge.getText()).matches());
+        }
+        if (checkBoxCourse.isSelected() && textFieldCourse.getText() != null) {
+            isValidCourse.setValue(Pattern.compile("^[a-zA-Z0-9 -]{1,50}$").matcher(textFieldCourse.getText()).matches());
+        }
+        return (isValidName.getValue() && isValidAge.getValue() && isValidCourse.getValue());
     }
 }
